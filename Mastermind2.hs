@@ -39,7 +39,7 @@ makeList xs n = [[x] ++ y | x <- xs, y <- makeList xs $ n-1]
 firstList = makeList [Red,Yellow,Blue,Green,Orange] 4
 
 guessing :: Pattern -> Pattern -> [Pattern] -> [Pattern]
-guessing secret guess xs = traceShow guess filter (\x -> reaction x guess == reaction secret guess) xs
+guessing secret guess xs = filter (\x -> reaction x guess == reaction secret guess) xs
 
 
 exercise1play :: Pattern -> [Pattern] -> Int -> Int

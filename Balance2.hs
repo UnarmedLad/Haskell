@@ -3,8 +3,6 @@ module Balance
 where 
 
 import Data.List
-import Debug.Trace
-myShow xs = traceShow xs xs 
 
 data Coin = Light | Normal deriving (Eq,Show,Bounded,Enum)
 data Feedback = Leftbound | Balanced | Rightbound deriving (Eq,Show)
@@ -43,7 +41,7 @@ exercise6alist n xs = map (\ (a,b) -> (a, group b)) $ [(maybeGuess, [reaction ma
 
 exercise6aplay :: Int -> Pattern -> [Pattern] -> Int -> Int
 exercise6aplay _ secret (x:[]) i = if x == secret then i else -1
-exercise6aplay n secret xs i = exercise6aplay n secret (guessing secret (myShow $ exercise6amin $ exercise6amax $ exercise6alist n xs) xs) (i+1)
+exercise6aplay n secret xs i = exercise6aplay n secret (guessing secret (exercise6amin $ exercise6amax $ exercise6alist n xs) xs) (i+1)
 
 exercise6a :: Int -> Pattern -> Int
 exercise6a n secret = exercise6aplay n secret firstList 0 where firstList = makeList [Light,Normal] n
@@ -57,7 +55,7 @@ exercise6bentropy xs = map (\ (a,b) -> (a,sum $ map (\ x -> fromIntegral x * (lo
 
 exercise6bplay :: Int -> Pattern -> [Pattern] -> Int -> Int
 exercise6bplay _ secret (x:[]) i = if x == secret then i else -1
-exercise6bplay n secret xs i = exercise6bplay n secret (guessing secret (myShow $ exercise6bmin $ exercise6bentropy $ exercise6alist n xs) xs) (i+1)
+exercise6bplay n secret xs i = exercise6bplay n secret (guessing secret (exercise6bmin $ exercise6bentropy $ exercise6alist n xs) xs) (i+1)
 
 exercise6b :: Int -> Pattern -> Int
 exercise6b n secret = exercise6bplay n secret firstList 0 where firstList = makeList [Light,Normal] n
