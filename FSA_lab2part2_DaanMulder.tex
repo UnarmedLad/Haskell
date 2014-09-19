@@ -1,3 +1,19 @@
+\documentclass[a4paper,12pt]{amsart}
+
+\usepackage[english]{babel}
+\usepackage{a4wide}
+\usepackage{verbatim}
+
+\makeatletter \def\verbatim@startline{\verbatim@line{\leavevmode\kern20pt\relax}} \makeatother
+
+\newenvironment{code}{\footnotesize\verbatim}{\endverbatim\normalsize}
+
+\begin{document}
+
+\title{Functional Specification of Algorithms, lab exercises week 2, part 2}
+\author{Daan Mulder, 10279245}
+\maketitle
+
 \section*{Balance}
 
 \subsection*{Exercise 6}
