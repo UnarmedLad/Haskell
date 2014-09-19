@@ -80,8 +80,7 @@ exercise1 secret = exercise1play secret firstList 0
 For exercise 2 we use the following functions to transform the list of possibilities each round: \texttt{exercise2list} generates a list of tuples that connect each possible guess with a list of feedbacks for every possible secret, then groups each list to obtain the required partition. Then, \texttt{exercise2max} counts the number of elements in each block of the partitions and returns the maximum number for each possible guess. Finally, \texttt{exercise2min} returns the first possible guess that has the minimum number over all possible guesses (this function will be used in other exercises as well).
 \begin{code}
 exercise2min :: [(Pattern, Int)] -> Pattern
-exercise2min xs = fst $ (filter (\ (_,b) -> b
-                  == minimum (map snd xs)) xs) !! 0
+exercise2min xs = fst $ (filter (\ (_,b) -> b == minimum (map snd xs)) xs) !! 0
 
 exercise2max :: [(Pattern, [[Feedback]])] -> [(Pattern, Int)]
 exercise2max xs = map (\ (a,b) -> (a,maximum b)) $
@@ -113,7 +112,8 @@ exercise3prep xs = map (\ (a,b) -> (a,length b)) xs
 
 exercise3play :: Pattern -> [Pattern] -> Int -> Int
 exercise3play secret (x:[]) n = if (x == secret) then n else -1
-exercise3play secret xs n = exercise3play secret (guessing secret (exercise3max $ exercise3prep $ exercise2list xs) xs) n+1
+exercise3play secret xs n = exercise3play secret (guessing secret (exercise3max $
+                            exercise3prep $ exercise2list xs) xs) n+1
 
 exercise3 :: Pattern -> Int
 exercise3 secret = exercise3play secret firstList 0
@@ -123,11 +123,13 @@ exercise3 secret = exercise3play secret firstList 0
 \texttt{exercise4sum} counts the number of elements in each block of the partitions and then takes the sum of the squares. For comparison purposes, it is not necessary to divide by the number of total elements, since it will be the same for each possible guess (namely, the total number of currently possible guesses). Finally, we again use \texttt{exercise2min} to obtain the guess with the minimum number.
 \begin{code}
 exercise4sum :: [(Pattern, [[Feedback]])] -> [(Pattern, Int)]
-exercise4sum xs = map (\ (a,b) -> (a,sum $ map (^2) b)) $ map (\ (a,b) -> (a,map length b)) xs
+exercise4sum xs = map (\ (a,b) -> (a,sum $ map (^2) b)) $
+                  map (\ (a,b) -> (a,map length b)) xs
 
 exercise4play :: Pattern -> [Pattern] -> Int -> Int
 exercise4play secret (x:[]) n = if (x == secret) then n else -1
-exercise4play secret xs n = exercise4play secret (guessing secret (exercise2min $ exercise4sum $ exercise2list xs) xs) n+1
+exercise4play secret xs n = exercise4play secret (guessing secret (exercise2min $
+                            exercise4sum $ exercise2list xs) xs) n+1
 
 exercise4 :: Pattern -> Int
 exercise4 secret = exercise4play secret firstList 0
@@ -140,11 +142,13 @@ exercise5min :: [(Pattern, Float)] -> Pattern
 exercise5min xs = fst $ (filter (\ (_,b) -> b == minimum (map snd xs)) xs) !! 0
 
 exercise5entropy :: [(Pattern, [[Feedback]])] -> [(Pattern, Float)]
-exercise5entropy xs = map (\ (a,b) -> (a,sum $ map (\ x -> fromIntegral x * (log $ fromIntegral x)) $ b)) $ map (\ (a,b) -> (a,map length b)) xs
+exercise5entropy xs = map (\ (a,b) -> (a,sum $ map (\ x -> fromIntegral x *
+                     (log $ fromIntegral x)) $ b)) $ map (\ (a,b) -> (a,map length b)) xs
 
 exercise5play :: Pattern -> [Pattern] -> Int -> Int
 exercise5play secret (x:[]) n = if (x == secret) then n else -1
-exercise5play secret xs n = exercise5play secret (guessing secret (exercise5min $ exercise5entropy $ exercise2list xs) xs) n+1
+exercise5play secret xs n = exercise5play secret (guessing secret (exercise5min $
+                            exercise5entropy $ exercise2list xs) xs) n+1
 
 exercise5 :: Pattern -> Int
 exercise5 secret = exercise5play secret firstList 0
