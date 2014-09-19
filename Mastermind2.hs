@@ -3,6 +3,8 @@ module Mastermind
 where 
 
 import Data.List
+import Debug.Trace
+myShow xs = traceShow xs xs 
 
 data Colour   = Red | Yellow | Blue | Green  | Orange
                 deriving (Eq,Show,Bounded,Enum)
